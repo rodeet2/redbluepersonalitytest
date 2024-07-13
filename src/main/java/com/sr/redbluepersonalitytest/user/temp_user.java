@@ -1,0 +1,69 @@
+package com.sr.redbluepersonalitytest.user;
+import java.time.LocalDateTime;
+import org.springframework.stereotype.Component;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Component
+public class temp_user {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String R_B;
+    private String answers = "";
+    private String instragramID;
+    private String location;
+    private LocalDateTime dt;
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getR_B() {
+        return R_B;
+    }
+    public void setR_B(String r_B) {
+        R_B = r_B;
+    }
+    public String getInstragramID() {
+        return instragramID;
+    }
+    public void setInstragramID(String instragramID) {
+        this.instragramID = instragramID;
+    }
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    public LocalDateTime getDt() {
+        return dt;
+    }
+    public void setDt(LocalDateTime dt) {
+        this.dt = dt;
+    }
+
+    public String get_answers(){
+        return answers;
+    }
+
+    public void set_answers( String selected){
+    if(answers.isBlank()){this.answers = answers+selected;}else{this.answers = answers+ ","+ selected;}
+    }
+
+    public void set_answersNew(){
+        this.answers = "";
+     }
+
+}

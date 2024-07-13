@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+  <title>Your Personality</title>
+</head>
+<body>
+  <h1>Your personality is:</h1>  <h2 th:name="personality" th:text="${personality}" style="font-size: 2em;">perso</h2>  
+
+  <form action="/ig" method="post">
+    <input type="text" id="ig" name="ig" size="60"><br><br>
+    <button type="Start">Add Instagram</button>
+
+    <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
+    <input type="hidden" name="username" th:value="${username}">
+    <input type="hidden" name="finalanswers" th:value="${finalanswers}">
+    <input type="hidden" name="personality" th:value="${personality}">
+
+  </form>
+  <div id="userBlocks">
+    <script th:inline="javascript">
+      const userBlocksContainer = document.getElementById('userBlocks');
+      const userBlocks = users.map(user => `
+        <div class="user-block">
+          <p>Name: ${user.getName()}</p>
+          <p>Instagram: ${user.getInstragramID()}</p>
+        </div>
+      `);
+
+      userBlocksContainer.innerHTML = userBlocks.join('');
+    </script>
+  </div>
+  
+</body> 
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Red Blue Personality Test</title>
+</head>
+<body>
+  <h1 th:text="${question}">Loading...</h1>
+  <form action="/submitChoice" method="post">
+    <label th:text="${initialAnswer}"></label>
+    <div>
+      <input type="radio" th:id="${options[0].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[0]}">
+      <label th:for="${options[0].toLowerCase()}" th:text="${options[0]}">
+      </label>
+    </div>
+    <div>
+      <input type="radio" th:id="${options[1].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[1]}">
+      <label th:for="${options[1].toLowerCase()}" th:text="${options[1]}">
+      </label>
+    </div>
+  <button type="submit">Next</button>
+  <input type="hidden" name="questionId" th:value="${questionID}"> 
+  <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
+  <input type="hidden" name="username" th:value="${username}">
+</form>
+</body>
+</html>
