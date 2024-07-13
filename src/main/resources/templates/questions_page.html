@@ -2,17 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Red Blue Personality Test</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <h1 th:text="${question}">Loading...</h1>
   <form action="/submitChoice" method="post">
     <label th:text="${initialAnswer}"></label>
-    <div>
+    <div class="option-container">
       <input type="radio" th:id="${options[0].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[0]}">
       <label th:for="${options[0].toLowerCase()}" th:text="${options[0]}">
       </label>
-    </div>
-    <div>
       <input type="radio" th:id="${options[1].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[1]}">
       <label th:for="${options[1].toLowerCase()}" th:text="${options[1]}">
       </label>

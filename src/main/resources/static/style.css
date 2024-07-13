@@ -1,0 +1,87 @@
+body {
+  display: flex; /* Make body a flex container for centering */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: top; /* Center elements horizontally */
+  justify-content: center; /* Center content vertically */
+  min-height: 100vh; /* Set minimum viewport height */
+  margin: 0; /* Remove default body margin */
+  font-family: Arial, sans-serif; /* Set a clean, modern font */
+  background-color: #ffffff; /* Light background color */
+}
+
+h1, h2 {  /* Apply styles to both h1 and h2 */
+  font-size: 2.5em; /* Larger font size */
+  text-align: center; /* Text is still centered horizontally */
+  align-self: flex-start; /* Move titles upwards, not full center */
+  margin: 20px 0; /* Add space before and after */
+  color: #333; /* Darker text color for contrast */
+}
+
+.content, .user-blocks-container { /* Apply styles to both classes */
+  width: 30%; /* Set width for content and user block container */
+  margin-top: 30px; /* Add space from top */
+}
+
+.user-input {
+  display: flex; /* Make form a flex container */
+  align-items: center; /* Align input and button vertically */
+  justify-content: space-between; /* Reduce space between elements */
+}
+
+.user-input input {
+  padding: 15px; /* Add padding to input */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 5px; /* Add rounded corners */
+  font-size: 1.2em; /* Larger font size for input */
+  outline: none; /* Remove default outline */
+  margin-right: 10px; /* Add a small gap between input and button */
+}
+
+.user-input button {
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* White text color */
+  padding: 15px 25px; /* Add padding to button */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Add rounded corners */
+  font-size: 1.2em; /* Larger font size for button */
+  cursor: pointer; /* Make button look clickable */
+  transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.user-input button:hover {
+  background-color: #3e8e41; /* Darker green on hover */
+}
+
+.user-block {
+    background-color: #ec7a7a;
+    color: white; /* Add white text color for contrast */
+    border: 1px solid #ffffff;
+    padding: 20px;
+    margin: 10px; /* Add margin between blocks */
+    width: 45%; /* Set width for each block */
+}
+
+.user-block p {
+    margin: 0; 
+}
+
+.option-container {
+  display: flex; /* Make option container a flex container */
+  justify-content: space-between; /* Space options horizontally */
+  width: 20%; /* Set container width */
+  align-items: center;
+  margin-bottom: 20px; /* Add space after options */
+}
+
+.option-container label {
+  display: block; /* Make labels block elements */
+  padding: 15px; /* Add padding to options */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 5px; /* Add rounded corners */
+  text-align: center; /* Center text within options */
+  cursor: pointer; /* Make options look clickable */
+}
+
+.option-container input[type="radio"] {
+  margin-right: 50px; /* Add space between radio buttons */
+}
