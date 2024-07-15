@@ -35,6 +35,7 @@ public class resultsController {
         //save user, and show other similar users
         User user = new User();
         user.setR_B(personality);
+        model.addAttribute("personality", personality);
         user.setName(username);
         user.setAnswers(finalanswers);
         user.setDt(LocalDateTime.now());

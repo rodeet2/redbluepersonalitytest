@@ -1,87 +1,143 @@
+/* General Styles (Apply to all HTML pages) */
 body {
-  display: flex; /* Make body a flex container for centering */
-  flex-direction: column; /* Stack elements vertically */
-  align-items: top; /* Center elements horizontally */
-  justify-content: center; /* Center content vertically */
-  min-height: 100vh; /* Set minimum viewport height */
-  margin: 0; /* Remove default body margin */
-  font-family: Arial, sans-serif; /* Set a clean, modern font */
-  background-color: #ffffff; /* Light background color */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
 }
 
-h1, h2 {  /* Apply styles to both h1 and h2 */
-  font-size: 2.5em; /* Larger font size */
-  text-align: center; /* Text is still centered horizontally */
-  align-self: flex-start; /* Move titles upwards, not full center */
-  margin: 20px 0; /* Add space before and after */
-  color: #333; /* Darker text color for contrast */
+h1, h2 {
+  text-align: center;
 }
 
-.content, .user-blocks-container { /* Apply styles to both classes */
-  width: 30%; /* Set width for content and user block container */
-  margin-top: 30px; /* Add space from top */
+/* Styles for the Start Page */
+h2 {
+  font-size: 2em;
+  margin-top: 50px;
 }
 
 .user-input {
-  display: flex; /* Make form a flex container */
-  align-items: center; /* Align input and button vertically */
-  justify-content: space-between; /* Reduce space between elements */
-}
-
-.user-input input {
-  padding: 15px; /* Add padding to input */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 5px; /* Add rounded corners */
-  font-size: 1.2em; /* Larger font size for input */
-  outline: none; /* Remove default outline */
-  margin-right: 10px; /* Add a small gap between input and button */
-}
-
-.user-input button {
-  background-color: #4CAF50; /* Green background color */
-  color: white; /* White text color */
-  padding: 15px 25px; /* Add padding to button */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Add rounded corners */
-  font-size: 1.2em; /* Larger font size for button */
-  cursor: pointer; /* Make button look clickable */
-  transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
-}
-
-.user-input button:hover {
-  background-color: #3e8e41; /* Darker green on hover */
-}
-
-.user-block {
-    background-color: #ec7a7a;
-    color: white; /* Add white text color for contrast */
-    border: 1px solid #ffffff;
-    padding: 20px;
-    margin: 10px; /* Add margin between blocks */
-    width: 45%; /* Set width for each block */
-}
-
-.user-block p {
-    margin: 0; 
-}
-
-.option-container {
-  display: flex; /* Make option container a flex container */
-  justify-content: space-between; /* Space options horizontally */
-  width: 20%; /* Set container width */
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px; /* Add space after options */
+  margin-top: 30px;
 }
 
-.option-container label {
-  display: block; /* Make labels block elements */
-  padding: 15px; /* Add padding to options */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 5px; /* Add rounded corners */
-  text-align: center; /* Center text within options */
-  cursor: pointer; /* Make options look clickable */
+.user-input input[type="text"] {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+  margin-bottom: 10px; /* Adjusted margin */
+}
+
+.user-input button[type="Start"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: 0px; /* Adjusted margin */
+}
+
+.user-input button[type="Start"]:hover {
+  background-color: #3e8e41;
+}
+
+/* Styles for the Question Page */
+.option-container {
+  margin-top: 20px; /* Increased margin */
 }
 
 .option-container input[type="radio"] {
-  margin-right: 50px; /* Add space between radio buttons */
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.option-container label {
+  font-size: 1.2em;
+  margin-right: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+form button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: 20px;
+}
+
+form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for the Result Page */
+.user-input-ig {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-input-ig input[type="text"] {
+  width: 200px;
+  height: 25px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.user-input-ig button[type="submit"] {
+  min-width: 100px; /* Adjust width as necessary */
+  height: 30px; /* Adjust height to match input */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0px;
+  text-align: left; 
+}
+
+.user-input-ig button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.titles {
+  margin-bottom: 10px; 
+}
+
+.titles h1 {
+  margin-bottom: 5px;
+}
+
+.titles h2 {
+  margin-top: 9; /* Remove default top margin */
+  font-size: 2em;
+}
+
+.input-group h5 {
+  margin: 0 5px 5px 0; /* Adjust margins as needed */
+  margin-bottom: 3px;
 }

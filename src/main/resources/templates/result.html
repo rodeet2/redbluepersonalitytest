@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html>
 <head>
-  <title>Your Personality</title>
-  <head>
-    <meta charset="UTF-8">
-    <title>User Blocks</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+  <title>Your Personality is</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <style>
+.user-block {
+  display: inline-block;
+  background-color: #e07a7a;
+  padding: 10px; /* Adjust padding for spacing inside the box */
+  margin: 10px; /* Adjust margin for spacing between boxes */
+  border: 1px solid #ddd;
+  height: 50px;
+  width: 180px; /* Fixed width for each .user-block */
+  text-align: left; /* Align text to the left within the box */
+}
+
+.user-block p {
+  margin: 5px 0; /* Adjust top and bottom margins of <p> tags */
+}
+
+.user-blocks-wrapper {
+  display: flex;
+  flex-wrap: wrap; /* Allow blocks to wrap to the next line */
+  justify-content: left; /* Center blocks horizontally */
+  max-width: 650px; /* Limit the width of the wrapper */
+  margin: 0 auto; /* Center the wrapper horizontally */
+}
+
+  </style>
 </head>
 <body>
-  <div class="content">
-    <h1>Your personality is:</h1>  
-    <h2 th:name="personality" th:text="${personality}" style="font-size: 2em;">perso</h2>  
+  <div class="titles">
+    <h1>Your personality is:</h1>
+    <h2 th:name="personality" th:text="${personality}" style="font-size: 2em;">perso</h2>
   </div>
 
-  <form action="/ig" method="post" class="user-input">
-    <input type="text" id="ig" name="ig" size="60"><br><br>
-    <button type="Start">Add Instagram</button>
+  <form action="/ig" method="post" class="user-input-ig">
+    <div class="input-group">
+      <h5>Enter your instragram, to view others</h5>
+      <input type="text" id="ig" name="ig" size="60">
+      <button type="submit">Add Instagram</button>
+    </div>
 
     <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
     <input type="hidden" name="username" th:value="${username}">
     <input type="hidden" name="finalanswers" th:value="${finalanswers}">
     <input type="hidden" name="personality" th:value="${personality}">
-
   </form>
 
-  <div class="user-blocks-container" id="userBlocks">
-    <script th:inline="javascript">
-        const userBlocksContainer = document.getElementById('userBlocks');
-        const users = /*[[${users}]]*/ [];
+  <div class="user-blocks-wrapper">  <div class="user-blocks-container" id="userBlocks">
+      <script th:inline="javascript">
+          const userBlocksContainer = document.getElementById('userBlocks');
+          const users = /*[[${users}]]*/ [];
 
-        const userBlocks = users.map(user => `
-            <div class="user-block">
-                <p>${user.name}</p>
-                <p>Instagram: ${user.instagramID}</p>
-            </div>
-        `);
+          const userBlocks = users.map(user => `
+              <div class="user-block">
+                  <p>${user.name}</p>
+                  <p> <a href="http://www.instagram.com/${user.instragramID}" target="_blank">${user.instragramID}</a></p>
+              </div>
+          `);
 
-        userBlocksContainer.innerHTML = userBlocks.join('');
-    </script>
+          userBlocksContainer.innerHTML = userBlocks.join('');
+      </script>
+    </div>
   </div>
 
-</body> 
+</body>
 </html>
