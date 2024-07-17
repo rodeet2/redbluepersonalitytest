@@ -16,5 +16,4 @@ public class RbPersonalityTestApplication {
 	public String hello(){
 		return "index";
 	}
-
 }

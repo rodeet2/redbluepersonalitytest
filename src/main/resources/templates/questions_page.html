@@ -6,19 +6,39 @@
 </head>
 <body>
   <h1 th:text="${question}">Loading...</h1>
-  <form action="/submitChoice" method="post">
-        <div class="option-container">
+  <form action="/submitChoice" method="post" id="optionsForm">
+    <div class="option-container">
       <input type="radio" th:id="${options[0].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[0]}">
-      <label th:for="${options[0].toLowerCase()}" th:text="${options[0]}">
-      </label>
+      <label th:for="${options[0].toLowerCase()}" th:text="${options[0]}"></label>
+      
       <input type="radio" th:id="${options[1].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[1]}">
-      <label th:for="${options[1].toLowerCase()}" th:text="${options[1]}">
-      </label>
+      <label th:for="${options[1].toLowerCase()}" th:text="${options[1]}"></label>
     </div>
-  <button type="submit">Next</button>
-  <input type="hidden" name="questionId" th:value="${questionID}"> 
-  <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
-  <input type="hidden" name="username" th:value="${username}">
-</form>
+    
+    <button id="submitButton" disabled type="submit">Next</button>
+    <input type="hidden" name="questionId" th:value="${questionID}"> 
+    <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
+    <input type="hidden" name="username" th:value="${username}">
+  </form>
+
+  <script>
+    const form = document.getElementById('optionsForm');
+    const radioGroup = document.querySelector('.option-container');
+    const submitButton = form.querySelector('button[type="submit"]');
+  
+    radioGroup.addEventListener('change', () => {
+      const isSelected = [...radioGroup.querySelectorAll('input[type="radio"]')].some(radio => radio.checked);
+      submitButton.disabled = !isSelected;
+    });
+  
+    form.addEventListener('submit', (event) => {
+      const isSelected = [...radioGroup.querySelectorAll('input[type="radio"]')].some(radio => radio.checked);
+      if (!isSelected) {
+        alert('Please select an option');
+        event.preventDefault(); 
+      } else {
+      }
+    });
+  </script>
 </body>
 </html>

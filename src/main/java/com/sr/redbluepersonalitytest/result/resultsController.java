@@ -2,6 +2,7 @@ package com.sr.redbluepersonalitytest.result;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,8 @@ public class resultsController {
 
     @PostMapping("ig")
     public String createUser(@RequestParam String finalanswers, @RequestParam String personality, @RequestParam String username, @RequestParam String ig, Model model) {
+        //check if already exists and assing true or false to existingUser attribute:
+         model.addAttribute("existingUser",userService.userExistsByInstagramId(ig));
         //save user, and show other similar users
         User user = new User();
         user.setR_B(personality);
@@ -44,14 +47,8 @@ public class resultsController {
         userService.saveUser(user);
         List<User> users = userService.getRandomUsers(user.getR_B());
         model.addAttribute("users", users);
-
-for (User user1 : users) {
-    System.out.println("Name: " + user1.getName());
-    System.out.println("ig: " + user1.getInstragramID()); 
-  }
-
         return "result";
+        }
     }
-}
 
 

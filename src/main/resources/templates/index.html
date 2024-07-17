@@ -6,9 +6,25 @@
 </head>
 <body>
   <h2>Click Start to begin</h2>
-  <form action="/start" method="post" class="user-input">
-    <input type="text" id="username" name="username" size="60" placeholder="Enter Username"><br><br>
-    <button type="Start">Start</button>
+  <form action="/start" method="post" class="user-input" novalidate>
+    <input type="text" id="username" name="username" size="60" maxlength="20" placeholder="Enter Username" required><br><br>
+    <label id="usernameError"></label>
+    <button type="submit">Start</button>
   </form>
+
+  <script>
+    const usernameInput = document.getElementById('username');
+    const usernameError = document.getElementById('usernameError');
+    const form = document.querySelector('.user-input');  // Select the form
+
+    form.addEventListener('submit', (event) => {  // Event listener on submit
+      if (usernameInput.value === '') {
+        usernameError.textContent = 'Name can not be empty!';
+        event.preventDefault(); // Prevent form submission
+      } else {
+        usernameError.textContent = '';
+      }
+    });
+  </script>
 </body>
 </html>

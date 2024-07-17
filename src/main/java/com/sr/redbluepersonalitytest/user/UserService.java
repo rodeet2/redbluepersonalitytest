@@ -29,6 +29,14 @@ public class UserService {
         return query.getResultList();
     }
 
+    public boolean userExistsByInstagramId(String instagramId) {
+        String queryString = "SELECT COUNT(*) FROM menagerie.user WHERE instragramid = LOWER(:instagramId)";
+        Query query = entityManager.createNativeQuery(queryString);
+        query.setParameter("instagramId", instagramId);
+        Long count = (Long) query.getSingleResult();
+        return count > 0;
+    }
+
     public User saveUser(User user) {
         return userRepository.save(user);
     }

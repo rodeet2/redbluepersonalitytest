@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}">
   <title>Your Personality is</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -29,6 +30,19 @@
   margin: 0 auto; /* Center the wrapper horizontally */
 }
 
+.titles {
+  margin-bottom: 0px;
+}
+
+.titles h1 {
+  margin-bottom: 7px; 
+}
+
+.titles h2 {
+  margin-top: 0;
+  font-size: 2em;
+}
+
   </style>
 </head>
 <body>
@@ -41,7 +55,7 @@
     <div class="input-group">
       <h5>Enter your instragram, to view others</h5>
       <input type="text" id="ig" name="ig" size="60">
-      <button type="submit">Add Instagram</button>
+      <button id="ig_btn" onclick="checkAndOpenModal()" type="submit" >Add Instagram</button>
     </div>
 
     <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
@@ -50,11 +64,11 @@
     <input type="hidden" name="personality" th:value="${personality}">
   </form>
 
-  <div class="user-blocks-wrapper">  <div class="user-blocks-container" id="userBlocks">
-      <script th:inline="javascript">
+  <div class="user-blocks-wrapper">  
+    <div class="user-blocks-container" id="userBlocks">
+     <script th:inline="javascript">
           const userBlocksContainer = document.getElementById('userBlocks');
           const users = /*[[${users}]]*/ [];
-
           const userBlocks = users.map(user => `
               <div class="user-block">
                   <p>${user.name}</p>
@@ -63,9 +77,56 @@
           `);
 
           userBlocksContainer.innerHTML = userBlocks.join('');
+          const ig_btn = document.getElementById('ig_btn');
+
+          ig_btn.addEventListener('click', () => {
+         ig_btn.disabled = true;
+          });
       </script>
     </div>
   </div>
+
+  <!-- <script th:inline="javascript">
+    $(document).ready(function() {
+        var shouldShowModal = /*[[${existingUser}]]*/ false;
+        if (shouldShowModal) {
+            $('#myModal').modal('show');
+        }
+    });
+</script> -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Replace Confirmation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p>The user already exists. Do you want to replace it?</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="replaceItem()">Replace</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<script th:inline="javascript">
+  var existingUser = /*[[${existingUser}]]*/ false;
+  function checkAndOpenModal() {
+      if (existingUser) {
+         $('#myModal').modal('show');
+      } else {
+          saveItem();
+      }
+  }
+</script>
+
 
 </body>
 </html>
