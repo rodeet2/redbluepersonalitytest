@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-
-import java.util.Date;
 import java.util.List;
 
 @Service

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Personality Red or Blue</title>
+  <title>Red Blue Personality Test</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
 
   <section style="max-height: fit-content; max-width: fit-content; min-height: 80px; min-width: 100px;" id="modalNoname" class="modal hidden">
     <div class="flex">
-        <h3>Empty Feild</h3>
+        <h3>Empty Field</h3>
         <button id = "btnclose" class="btn-close">X</button>
       </div>
       <div>
@@ -25,8 +25,8 @@
 
   <script>
     const usernameInput = document.getElementById('username');
-    const form = document.querySelector('.user-input');  // Select the form
-    form.addEventListener('submit', (event) => {  // Event listener on submit
+    const form = document.querySelector('.user-input'); 
+    form.addEventListener('submit', (event) => {  
       if (usernameInput.value === '') {
         openModalforname();
       } else {

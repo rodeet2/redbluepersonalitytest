@@ -22,7 +22,6 @@ public class resultsController {
     @PostMapping("/results")
     public String load_results(Model model, @RequestParam (required = false) String initialAnswer, @RequestParam (required = false) String username, @RequestParam (required = false) String selectedOption) {
         //put items on the hidden dashboard (some are not hidden)
-        System.out.print("In results now!");
         model.addAttribute("name", username);
         String finalanswers = (initialAnswer + "," + selectedOption).substring(1);
         model.addAttribute("finalanswers", finalanswers);
