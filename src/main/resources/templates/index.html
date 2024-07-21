@@ -8,23 +8,48 @@
   <h2>Click Start to begin</h2>
   <form action="/start" method="post" class="user-input" novalidate>
     <input type="text" id="username" name="username" size="60" maxlength="20" placeholder="Enter Username" required><br><br>
-    <label id="usernameError"></label>
     <button type="submit">Start</button>
   </form>
 
+  <section style="max-height: fit-content; max-width: fit-content; min-height: 80px; min-width: 100px;" id="modalNoname" class="modal hidden">
+    <div class="flex">
+        <h3>Empty Feild</h3>
+        <button id = "btnclose" class="btn-close">X</button>
+      </div>
+      <div>
+        <p>
+          Enter a name to continue!
+        </p>
+      </div>
+    </section>
+
   <script>
     const usernameInput = document.getElementById('username');
-    const usernameError = document.getElementById('usernameError');
     const form = document.querySelector('.user-input');  // Select the form
-
     form.addEventListener('submit', (event) => {  // Event listener on submit
       if (usernameInput.value === '') {
-        usernameError.textContent = 'Name can not be empty!';
-        event.preventDefault(); // Prevent form submission
+        openModalforname();
       } else {
-        usernameError.textContent = '';
+
       }
     });
+
+    const openModalforname = function () {
+      const modalNoname = document.getElementById("modalNoname");
+      event.preventDefault();
+      modalNoname.classList.remove("hidden");
+    };
+
+    const closeModalforname = function () {
+      const btnclose = document.getElementById("btn-close");
+      event.preventDefault();
+      modalNoname.classList.add("hidden");
+    };
+
+    btnclose.addEventListener("click", function () {
+      closeModalforname();
+    });
+
   </script>
 </body>
 </html>

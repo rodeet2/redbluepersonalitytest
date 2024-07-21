@@ -1,132 +1,265 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}">
   <title>Your Personality is</title>
-  <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="style.css">
-
-  <style>
-.user-block {
-  display: inline-block;
-  background-color: #e07a7a;
-  padding: 10px; /* Adjust padding for spacing inside the box */
-  margin: 10px; /* Adjust margin for spacing between boxes */
-  border: 1px solid #ddd;
-  height: 50px;
-  width: 180px; /* Fixed width for each .user-block */
-  text-align: left; /* Align text to the left within the box */
-}
-
-.user-block p {
-  margin: 5px 0; /* Adjust top and bottom margins of <p> tags */
-}
-
-.user-blocks-wrapper {
-  display: flex;
-  flex-wrap: wrap; /* Allow blocks to wrap to the next line */
-  justify-content: left; /* Center blocks horizontally */
-  max-width: 650px; /* Limit the width of the wrapper */
-  margin: 0 auto; /* Center the wrapper horizontally */
-}
-
-.titles {
-  margin-bottom: 0px;
-}
-
-.titles h1 {
-  margin-bottom: 7px; 
-}
-
-.titles h2 {
-  margin-top: 0;
-  font-size: 2em;
-}
-
-  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
   <div class="titles">
     <h1>Your personality is:</h1>
-    <h2 th:name="personality" th:text="${personality}" style="font-size: 2em;">perso</h2>
+    <h2 id= "perso" :name="personality" th:text="${personality}" style="font-size: 2em;">perso</h2>
   </div>
 
-  <form action="/ig" method="post" class="user-input-ig">
+  <form method="post" id="user-input-ig" class="user-input-ig">
     <div class="input-group">
       <h5>Enter your instragram, to view others</h5>
-      <input type="text" id="ig" name="ig" size="60">
-      <button id="ig_btn" onclick="checkAndOpenModal()" type="submit" >Add Instagram</button>
+      <input type="text" id="ig" th:name="ig" maxlength="30" size="60">
+      <button id="ig_btn" type="submit"> Add Instagram</button>
     </div>
-
     <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
-    <input type="hidden" name="username" th:value="${username}">
-    <input type="hidden" name="finalanswers" th:value="${finalanswers}">
-    <input type="hidden" name="personality" th:value="${personality}">
-  </form>
+    <input type="hidden" id="username" name="username" th:value="${username}">
+    <input type="hidden" id="finalanswers" name="finalanswers" th:value="${finalanswers}">
+    <input type="hidden" id="personality" name="personality" th:value="${personality}">
+    </form>
 
   <div class="user-blocks-wrapper">  
     <div class="user-blocks-container" id="userBlocks">
-     <script th:inline="javascript">
-          const userBlocksContainer = document.getElementById('userBlocks');
-          const users = /*[[${users}]]*/ [];
-          const userBlocks = users.map(user => `
-              <div class="user-block">
-                  <p>${user.name}</p>
-                  <p> <a href="http://www.instagram.com/${user.instragramID}" target="_blank">${user.instragramID}</a></p>
-              </div>
-          `);
-
-          userBlocksContainer.innerHTML = userBlocks.join('');
-          const ig_btn = document.getElementById('ig_btn');
-
-          ig_btn.addEventListener('click', () => {
-         ig_btn.disabled = true;
-          });
-      </script>
     </div>
   </div>
 
-  <!-- <script th:inline="javascript">
-    $(document).ready(function() {
-        var shouldShowModal = /*[[${existingUser}]]*/ false;
-        if (shouldShowModal) {
-            $('#myModal').modal('show');
-        }
-    });
-</script> -->
+  <section id="modalResult" class="modal hidden">
+    <div class="flex">
+      <h3 style="margin-top: 2px">Already Exists</h3>
+      <button class="btn-close">⨉</button>
+    </div>
+    <div>
+      <p>
+        The instragram already exists, if you want to replace with the current
+        session, enter the previous session's date. 
+      </p>
+    </div>
+    <label hidden = "true" id="dateError" style="color: red;">The date was incorrect!</label>
+    <input type="date" id="date"/>
+    <button id="replace_btn" class="btn">Replace</button>
+    <label class="justDelete" id = "justDelete" style="text-align: center; size: 14cm; margin-top: 7px;">Just delete previous Instagram and answers</label>
+  </section>
+  
+<script defer src="morework.js"></script> 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Replace Confirmation</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <p>The user already exists. Do you want to replace it?</p>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary" onclick="replaceItem()">Replace</button>
-          </div>
-      </div>
-  </div>
-</div>
+<script>
+document.getElementById('ig_btn').addEventListener('click', function(event) {
+  event.preventDefault();
+  var igText = document.getElementById("ig").value;
+  if(igText === ""){
+    console.log("Can not be empty")
+    return}
 
-
-<script th:inline="javascript">
-  var existingUser = /*[[${existingUser}]]*/ false;
-  function checkAndOpenModal() {
-      if (existingUser) {
-         $('#myModal').modal('show');
-      } else {
-          saveItem();
-      }
+  $.ajax({
+  type: 'POST',
+  url: '/checkifexist',
+  data: { ig: igText},
+  success: function(response) {
+    if (response === 'true') {
+      console.log("Already Exists")
+      loadDefaults();
+      openModalforReplace();
+    } else {
+      console.log("New User")
+      saveUserDetails();
+    }
+  },
+  error: function(xhr, status, error) {
+    console.error('Error:', error);
   }
+});
+
+});
+
+document.getElementById('replace_btn').addEventListener('click', function(event) {
+  event.preventDefault();
+  var igText = document.getElementById("ig").value;
+  var dateText = document.getElementById("date").value;
+
+  if(dateText === ""){
+    console.log("Date can not be empty")
+    return}
+
+  $.ajax({
+  type: 'POST',
+  url: '/checkifdateTrue',
+  data: { ig: igText, date: dateText},
+  success: function(response) {
+    if (response === 'true') {
+      console.log("Date matches")
+      deleteUserDetails(function(success) {
+    if (success) {
+        saveUserDetails();
+        saveConfimation();
+    }
+    });
+
+    }else{
+      console.log("Date don't match")
+      var errorLabel = document.getElementById("dateError");
+      errorLabel.hidden=false;
+    }
+  },
+  error: function(xhr, status, error) {
+    console.error('Error:', error);
+  }
+});
+
+});
+
+document.getElementById('justDelete').addEventListener('click', function(event) {
+
+  if(document.getElementById('justDelete').textContent === "Delete Successful"){
+    console.log("Already deleted");
+ return;
+  }
+
+  var igText = document.getElementById("ig").value;
+  var dateText = document.getElementById("date").value;
+  if(dateText === ""){
+    console.log("Date can not be empty")
+    return}
+  $.ajax({
+  type: 'POST',
+  url: '/checkifdateTrue',
+  data: { ig: igText, date: dateText},
+  success: function(response) {
+    if (response === 'true') {
+      console.log("Date matches")
+      deleteUserDetails(function(success) {
+    if (success) {
+      document.getElementById('dateError').hidden =true;
+      const justDelete = document.getElementById('justDelete');
+      justDelete.textContent = "Delete Successful"
+      justDelete.style.cursor = "default"; 
+      justDelete.classList.add('disabled');
+    }
+    });
+
+    }else{
+      console.log("Date don't match")
+      var errorLabel = document.getElementById("dateError");
+      errorLabel.hidden=false;
+    }
+  },
+  error: function(xhr, status, error) {
+    console.error('Error:', error);
+  }
+});
+  
+});
+
+const openModalforReplace = function () {
+      const modalResult = document.getElementById("modalResult");
+      modalResult.classList.remove("hidden");
+    };
+
+const saveUserDetails = function () {
+  var igText = document.getElementById("ig").value;
+  var finalanswers = document.getElementById("finalanswers").value;
+  var personality = document.getElementById("personality").value;
+  var username = document.getElementById("username").value;
+
+  $.ajax({
+  type: 'POST',
+  url: '/ig',
+  data: {ig: igText, finalanswers: finalanswers, personality: personality, username: username},
+
+  success: function(response) {
+    console.log("Saved")
+    loadUsers(response);
+  },
+  error: function(xhr, status, error) {
+    console.error('Error:', error);
+  }
+});
+}
+
+const deleteUserDetails = function (callback) {
+  var igText = document.getElementById("ig").value;
+  $.ajax({
+  type: 'POST',
+  url: '/deleteuser',
+  data: { ig: igText},
+  success: function(response) {
+    if (response === 'true') {
+     console.log("delete successful")
+     callback(true)
+} else {
+     console.log("delete not successful")
+     callback(false)
+}
+  },
+  error: function(xhr, status, error) {
+    console.error('Error:', error);
+    callback(false)
+  }
+});
+}
+
+const loadUsers = function(users, maxLength = 15) { // Set default maxLength
+  console.log("loading other users");
+
+  const userBlocksContainer = document.getElementById('userBlocks');
+  if (!userBlocksContainer) {
+    console.error("Element with ID 'userBlocks' not found");
+    return; 
+  }
+
+  const userBlocks = users.map(user => {
+    const truncatedName = user.name.length > maxLength
+      ? user.name.substring(0, maxLength - 3) + "..."
+      : user.name;
+
+    const truncatedID = user.instragramID.length > maxLength
+      ? user.instragramID.substring(0, maxLength - 3) + "..."
+      : user.instragramID;
+
+    return `
+      <div class="user-block">
+        <Label>${truncatedName}</Label>
+        <p>
+          <a href="http://www.instagram.com/${truncatedID}" target="_blank">${truncatedID}</a>
+        </p>
+      </div>
+    `;
+  });
+
+  userBlocksContainer.innerHTML = userBlocks.join('');
+};
+
+
+
+const saveConfimation = function () {
+const modal = document.getElementById("modalResult");
+modal.querySelector("h3").textContent = "Replace Successful";
+modal.querySelector("p").textContent = "The previous session was replaced with the current session!";
+modal.querySelector("input[type='date']").hidden = true;
+modal.querySelector("label[style*='color: red']").hidden = true;
+const replace_btn = document.getElementById("replace_btn");
+replace_btn.style.display = 'none';
+const justDelete = document.getElementById("justDelete");
+justDelete.style.display = 'none';
+};
+const loadDefaults = function () {
+const modal = document.getElementById("modalResult");
+modal.querySelector("h3").textContent = "Already Exists";
+modal.querySelector("p").textContent = "The instragram already exists, if you want to replace with the current session, enter the previous session's date."
+modal.querySelector("input[type='date']").hidden = false;
+document.getElementById("date").value = "";
+modal.querySelector("label[style*='color: red']").hidden = true;
+const replace_btn = document.getElementById("replace_btn");
+replace_btn.style.display = 'block';
+const justDelete = document.getElementById("justDelete");
+justDelete.style.display = 'block';
+justDelete.textContent = "Just delete previous Instagram and answers"
+};
+
 </script>
-
-
 </body>
 </html>

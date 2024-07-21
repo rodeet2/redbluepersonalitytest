@@ -125,6 +125,141 @@ form button[type="submit"]:hover {
 }
 
 .input-group h5 {
-  margin: 0 5px 5px 0; /* Adjust margins as needed */
+  margin: 0 5px 5px 0; 
   margin-bottom: 3px;
+}
+
+.user-block {
+  display: inline-block;
+  background-color: #e07a7a;
+  padding: 10px;
+  margin: 10px;
+  height: 70px;
+  border: 1px solid #ddd;
+  width: 180px;
+  text-align: center; /* Center align text */
+}
+
+.user-block p {
+  margin: 0; /* Remove default margins */
+}
+
+.user-block a {
+  color: #fff; /* Text color for links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.user-blocks-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.titles {
+  margin-bottom: 0px;
+}
+
+.titles h1 {
+  margin-bottom: 7px; 
+}
+
+.titles h2 {
+  margin-top: 15px;
+  font-size: 2em;
+}
+
+/* modal styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 450px;
+  padding: 1.3rem;
+  min-height: 250px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 2;
+  top: 35%;
+  left: 35%;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+}
+
+.modal .flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal input {
+  padding: 0.7rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.modal p {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0.4rem 0 0.2rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.4rem;
+  font-weight: 700;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1em;
+}
+
+.btn-open {
+  position: absolute;
+  bottom: 150px;
+}
+
+.justDelete {
+  cursor: pointer;
+}
+
+.btn-close {
+  transform: translate(10px, -20px);
+  padding: 0.5rem 0.7rem;
+  background: #eee;
+  border-radius: 50%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
 }

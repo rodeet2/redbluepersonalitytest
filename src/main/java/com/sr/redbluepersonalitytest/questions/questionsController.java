@@ -26,10 +26,11 @@ public class questionsController {
 		return "questions_page";
 	  }
 	
-    @PostMapping("/submitChoice")
+    @PostMapping("/submitc")
     public String submitChoice(@RequestParam String selectedOption, @RequestParam Integer questionId, @RequestParam String initialAnswer, @RequestParam String username, Model model) {
 		Integer nextQuestionId = (questionId-1) + 1;
 		if(nextQuestionId > q.size() -1){
+			System.out.print("Going to results now");
 			return "forward:/results";
 		}
 		model.addAttribute("question", q.get(nextQuestionId).name);

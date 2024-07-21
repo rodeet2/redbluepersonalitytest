@@ -6,23 +6,23 @@
 </head>
 <body>
   <h1 th:text="${question}">Loading...</h1>
-  <form action="/submitChoice" method="post" id="optionsForm">
+  <form action="/submitc" method="post" class="options_forms" id="optionsForm">
     <div class="option-container">
-      <input type="radio" th:id="${options[0].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[0]}">
+      <input id="radio1" type="radio" th:id="${options[0].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[0]}">
       <label th:for="${options[0].toLowerCase()}" th:text="${options[0]}"></label>
       
-      <input type="radio" th:id="${options[1].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[1]}">
+      <input id="radio2" type="radio" th:id="${options[1].toLowerCase()}" th:name="selectedOption" th:value="${answerCodes[1]}">
       <label th:for="${options[1].toLowerCase()}" th:text="${options[1]}"></label>
     </div>
     
-    <button id="submitButton" disabled type="submit">Next</button>
+    <button id="submitButton" type="submit">Next</button>
     <input type="hidden" name="questionId" th:value="${questionID}"> 
     <input type="hidden" name="initialAnswer" th:value="${initialAnswer}">
     <input type="hidden" name="username" th:value="${username}">
   </form>
 
   <script>
-    const form = document.getElementById('optionsForm');
+     const form = document.getElementById('optionsForm');
     const radioGroup = document.querySelector('.option-container');
     const submitButton = form.querySelector('button[type="submit"]');
   
@@ -34,11 +34,12 @@
     form.addEventListener('submit', (event) => {
       const isSelected = [...radioGroup.querySelectorAll('input[type="radio"]')].some(radio => radio.checked);
       if (!isSelected) {
-        alert('Please select an option');
+        console.log("no options selected")
         event.preventDefault(); 
       } else {
       }
     });
-  </script>
+  </script>  
+  
 </body>
 </html>
