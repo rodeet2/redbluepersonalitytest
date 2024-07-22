@@ -1,7 +1,7 @@
 
 ## Red Blue Personality Test
 
-A fun simple personality test, choosing from Red or Blue. It then shows other users of similar results, and the link to their Instagram. 
+A fun simple personality test, choosing from Red or Blue. It then shows other users of similar results, and the link to their Instagram accounts. 
 
 #### Features
 
